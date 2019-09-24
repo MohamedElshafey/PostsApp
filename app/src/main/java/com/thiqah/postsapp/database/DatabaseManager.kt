@@ -1,33 +1,39 @@
 package com.thiqah.postsapp.database
 
-import java.util.*
+import com.thiqah.postsapp.data.PostModel
 
-class DatabaseManager(val responseDAO: PostDAO) {
+class DatabaseManager(val postDAO: PostDAO) {
 
     fun deleteRowIfExist(postId: Int) {
-        val row = responseDAO.getRow(postId)
+        val row = postDAO.getRow(postId)
         if (row != null) {
-            responseDAO.delete(row)
+            postDAO.delete(row)
         }
     }
 
-    fun getRow(postRow: PostTable) {
-        responseDAO.update(postRow)
+    fun getRow(postRow: PostModel) {
+        postDAO.update(postRow)
     }
 
-    fun insertAll(posts: ArrayList<PostTable>) {
+    fun insertAll(posts: ArrayList<PostModel>) {
         posts.forEach {
-            responseDAO.insert(it)
+            postDAO.insert(it)
         }
+    }
+
+    fun retrieveAll(): List<PostModel> {
+        return postDAO.retrieveAll()
     }
 
     //Update  the row exist or insert new row.
-    fun updateOrInsert(posts: PostTable) {
-        val row = responseDAO.getRow(posts.id)
-        if (row == null) {
-            responseDAO.insert(posts)
-        } else {
-            responseDAO.update(row)
+    fun updateOrInsert(posts: PostModel) {
+        if (posts.id != null) {
+            val row = postDAO.getRow(posts.id)
+            if (row == null) {
+                postDAO.insert(posts)
+            } else {
+                postDAO.update(row)
+            }
         }
     }
 

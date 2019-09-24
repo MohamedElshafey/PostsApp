@@ -1,6 +1,7 @@
 package com.thiqah.postsapp.database
 
 import androidx.room.*
+import com.thiqah.postsapp.data.PostModel
 
 
 /**
@@ -13,17 +14,17 @@ interface PostDAO {
     fun rowsCount(): Int
 
     @Query("SELECT * FROM postTable")
-    fun retrieveAll(): List<PostTable>
+    fun retrieveAll(): List<PostModel>
 
     @Query("SELECT * FROM postTable WHERE userId LIKE :userId LIMIT 1")
-    fun getRow(userId: Int): PostTable?
+    fun getRow(userId: Int): PostModel?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg postTable: PostTable)
+    fun insert(vararg postTable: PostModel)
 
     @Update
-    fun update(postTable: PostTable)
+    fun update(postTable: PostModel)
 
     @Delete
-    fun delete(postTable: PostTable)
+    fun delete(postTable: PostModel)
 }
