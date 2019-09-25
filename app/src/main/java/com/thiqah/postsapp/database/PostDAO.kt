@@ -16,8 +16,8 @@ interface PostDAO {
     @Query("SELECT * FROM postTable")
     fun retrieveAll(): List<PostModel>
 
-    @Query("SELECT * FROM postTable WHERE userId LIKE :userId LIMIT 1")
-    fun getRow(userId: Int): PostModel?
+    @Query("SELECT * FROM postTable WHERE id LIKE :postId LIMIT 1")
+    fun getRow(postId: Int): PostModel?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg postTable: PostModel)

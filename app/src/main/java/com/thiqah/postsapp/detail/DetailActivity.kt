@@ -17,7 +17,7 @@ class DetailActivity : AppCompatActivity() {
 
         val post = intent.getParcelableExtra<PostModel>("post")
 
-        binding.detailVM = PostItemViewModel(post)
+        binding.detailVM = PostItemViewModel(post, null, null)
 
     }
 }

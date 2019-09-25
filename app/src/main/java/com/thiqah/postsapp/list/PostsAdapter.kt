@@ -24,7 +24,7 @@ class PostsAdapter(private val postsList: ArrayList<PostModel>) :
 
         val post = postsList[position]
 
-        binding.postItemVM = PostItemViewModel(post)
+        binding.postItemVM = PostItemViewModel(post, this, position)
     }
 
     fun addItem(postModel: PostModel) {
