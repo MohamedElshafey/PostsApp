@@ -24,8 +24,3 @@ data class PostModel(
     @SerializedName("userId")
     val userId: Int?
 ) : Parcelable
-
-//,
-//    @PrimaryKey(autoGenerate = true)
-//    @ColumnInfo(name = "rowId")
-//    var rowId: Int = 0

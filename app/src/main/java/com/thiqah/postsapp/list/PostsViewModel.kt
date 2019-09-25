@@ -9,9 +9,11 @@ import com.google.gson.GsonBuilder
 import com.thiqah.postsapp.R
 import com.thiqah.postsapp.data.PostModel
 import com.thiqah.postsapp.database.DatabaseManager
+import com.thiqah.postsapp.repository.PostBody
 import com.thiqah.postsapp.repository.RestService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.internal.disposables.DisposableContainer
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -36,7 +38,8 @@ class PostsViewModel(private val databaseManager: DatabaseManager) : BaseObserva
     @Bindable
     var adapter: PostsAdapter? = null
 
-    var disposable: Disposable? = null
+    var disposable: DisposableContainer? = null
+    var dispose: Disposable? = null
 
     init {
         val localPosts = databaseManager.retrieveAll() as ArrayList
@@ -45,7 +48,7 @@ class PostsViewModel(private val databaseManager: DatabaseManager) : BaseObserva
             adapter = PostsAdapter(localPosts)
             notifyChange()
         } else {
-            disposable = observable
+            dispose = observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -75,9 +78,18 @@ class PostsViewModel(private val databaseManager: DatabaseManager) : BaseObserva
             ).show()
             return
         }
-        val post = PostModel(title = title, body = body, userId = 1)
-        databaseManager.updateOrInsert(post)
-        adapter?.addItem(post)
 
+        val post = PostModel(title = title, body = body, userId = 1)
+        val observable = restService.addPost(PostBody(post.body, post.title, post.userId))
+
+        dispose = observable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                //make the id = 0 to add more posts with different ids - because the APi always
+                //return id (101) so the room database replaces the old posts by this one.
+                it.id = 0
+                databaseManager.updateOrInsert(it)
+                adapter?.addItem(post)
+            }
     }
 }
