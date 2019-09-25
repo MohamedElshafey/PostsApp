@@ -9,7 +9,7 @@ import com.thiqah.postsapp.data.PostModel
 /**
  * Created by Mohamed Elshafey on 4/25/2018.
  */
-@Database(entities = [(PostModel::class)], version = 1, exportSchema = false)
+@Database(entities = [(PostModel::class)], version = 2, exportSchema = false)
 abstract class PostDatabase : RoomDatabase() {
 
     abstract fun responseDAO(): PostDAO

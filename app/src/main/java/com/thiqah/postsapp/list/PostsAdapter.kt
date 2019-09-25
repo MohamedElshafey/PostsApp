@@ -8,7 +8,7 @@ import com.thiqah.postsapp.R
 import com.thiqah.postsapp.data.PostModel
 import com.thiqah.postsapp.databinding.PostItemAdapterBinding
 
-class PostsAdapter(private val postsList: List<PostModel>) :
+class PostsAdapter(private val postsList: ArrayList<PostModel>) :
     RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +25,12 @@ class PostsAdapter(private val postsList: List<PostModel>) :
         val post = postsList[position]
 
         binding.postItemVM = PostItemViewModel(post)
+    }
+
+    fun addItem(postModel: PostModel) {
+        postsList.add(0, postModel)
+
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

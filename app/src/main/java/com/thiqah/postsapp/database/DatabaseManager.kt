@@ -21,19 +21,18 @@ class DatabaseManager(val postDAO: PostDAO) {
         }
     }
 
+
     fun retrieveAll(): List<PostModel> {
         return postDAO.retrieveAll()
     }
 
     //Update  the row exist or insert new row.
     fun updateOrInsert(posts: PostModel) {
-        if (posts.id != null) {
-            val row = postDAO.getRow(posts.id)
-            if (row == null) {
-                postDAO.insert(posts)
-            } else {
-                postDAO.update(row)
-            }
+        val row = postDAO.getRow(posts.id)
+        if (row == null) {
+            postDAO.insert(posts)
+        } else {
+            postDAO.update(row)
         }
     }
 

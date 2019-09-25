@@ -19,7 +19,7 @@ interface PostDAO {
     @Query("SELECT * FROM postTable WHERE userId LIKE :userId LIMIT 1")
     fun getRow(userId: Int): PostModel?
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg postTable: PostModel)
 
     @Update

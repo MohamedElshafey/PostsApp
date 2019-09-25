@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PostsApp</string>
+    <string name="title">title</string>
+    <string name="body">body</string>
+    <string name="post">Post</string>
+    <string name="title_missing_message">Please fill title before post</string>
+    <string name="body_missing_message">Please fill body before post</string>
 </resources>
