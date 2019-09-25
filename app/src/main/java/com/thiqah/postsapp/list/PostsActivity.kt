@@ -13,8 +13,8 @@ import com.thiqah.postsapp.databinding.ActivityPostsBinding
  * Hello there
  * This is Posts App for Thiqah Co.
  *
- * I want to apologize that i couldn't complete all task points
- * Here are what i finished:
+ * I want to apologize that i couldn't complete all the task points
+ * What i finished:
  *  = Post Item contains (Title , Body , ID)
  *  = Two Activities (List & Detail)
  *  = support Add - Delete ( Local and Online)
